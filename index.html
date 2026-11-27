@@ -458,14 +458,36 @@
     #stopwatch-chip .stopwatch-price { display: flex; align-items: center; gap: 2px; }
     #stopwatch-chip .token-svg-mini { width: 13px; height: 14px; }
     body.modal-open #stopwatch-chip { opacity: 0; pointer-events: none; }
+    #btn-fast-forward {
+      position: fixed; left: 50%; top: max(18px, env(safe-area-inset-top)); transform: translateX(-50%);
+      display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px;
+      border-radius: 999px; border: 3px solid var(--navy); cursor: pointer; pointer-events: auto;
+      background: linear-gradient(180deg, #fffaf0, var(--cream)); color: var(--navy);
+      font-weight: 900; font-size: 13px; letter-spacing: 0.9px;
+      box-shadow: 0 5px 0 var(--navy), 0 10px 20px rgba(0, 0, 0, 0.32), inset 0 2px 0 #fff;
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+    #btn-fast-forward:active { transform: translateX(-50%) translateY(2px); }
+    #btn-fast-forward.active {
+      background: linear-gradient(180deg, #ffe27a, #ff9f1c);
+      box-shadow: 0 4px 0 var(--navy), 0 0 16px rgba(255, 179, 43, 0.72), inset 0 2px 0 #fff8d6;
+    }
+    #btn-fast-forward[hidden] { display: none; }
+    body.modal-open #btn-fast-forward { opacity: 0; pointer-events: none; }
+    #btn-revive-ad[hidden] { display: none; }
+    .repair-ad-tag {
+      background: #16a34a; color: #fff; font-size: 10px; font-weight: 900; letter-spacing: 0.8px;
+      padding: 3px 8px; border-radius: 999px; border: 2px solid var(--navy);
+    }
     @media (max-width: 640px) {
       #timer-wrap { top: calc(max(18px, env(safe-area-inset-top)) + 64px); }
       #timerbar { width: min(240px, 68vw); }
       #stopwatch-chip { top: calc(max(18px, env(safe-area-inset-top)) + 90px); }
+      #btn-fast-forward { top: calc(max(18px, env(safe-area-inset-top)) + 62px); }
     }
   </style>
-  <script type="module" crossorigin src="./assets/index-Dx4g3gtT.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-Cib7qytZ.css">
+  <script type="module" crossorigin src="./assets/ttm-game-DdmjcILv.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/ttm-index-hkMpP4eq.css">
 </head>
 <body>
   <div id="app"></div>
@@ -502,6 +524,10 @@
       </svg>
       <span class="stopwatch-plus">+5s</span>
       <span class="stopwatch-price"><svg class="token-svg-mini" viewBox="0 0 36 38" aria-hidden="true"><use href="#coin-token"/></svg><span id="stopwatch-chip-cost">50</span></span>
+    </button>
+
+    <button id="btn-fast-forward" type="button" title="Boost train speed (F)" aria-label="Fast forward train 2.5x" aria-pressed="false" hidden>
+      <span aria-hidden="true">⏩</span><span>2.5× SPEED</span>
     </button>
 
     <div id="toptray"></div>
@@ -580,6 +606,7 @@
       <div class="station-actions">
         <button id="btn-hub-resume" class="station-action primary rail-button"><span id="station-resume-label">ALL ABOARD!</span><svg class="action-arrow" viewBox="0 0 32 32" aria-hidden="true"><use href="#menu-arrow"/></svg></button>
         <div class="station-settings">
+          <button id="btn-hub-map" class="station-action setting rail-button" aria-haspopup="dialog"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 8l8-3 8 3 8-3v19l-8 3-8-3-8 3V8zm8-3v19m8-16v19" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/></svg><span>ROUTE MAP</span></button>
           <button id="btn-hub-audio" class="station-action setting rail-button" aria-haspopup="dialog"><svg class="" viewBox="0 0 32 32" aria-hidden="true"><use href="#menu-speaker"/></svg><span>AUDIO</span></button>
           <button id="btn-hub-upgrades" class="station-action setting rail-button" aria-haspopup="dialog"><svg class="" viewBox="0 0 32 32" aria-hidden="true"><use href="#menu-tools"/></svg><span>UPGRADES</span></button>
         </div>
@@ -592,7 +619,7 @@
     <section class="control-menu audio-layout" role="dialog" aria-modal="true" aria-labelledby="audio-heading">
       <div class="room-topline"><button class="station-link menu-back rail-button" data-menu-back><svg class="" viewBox="0 0 32 32" aria-hidden="true"><use href="#menu-back"/></svg><span>STATION</span></button><div class="rail-token" aria-label="Coin balance"><svg class="" viewBox="0 0 32 32" aria-hidden="true"><use href="#menu-token"/></svg><span class="menu-token-count">0</span></div></div>
       <h2 class="station-heading railway-sign" id="audio-heading">AUDIO</h2>
-      <div class="audio-hero"><img data-menu-src="images/menus/blitz-audio-v1.webp" alt="Blitz adjusts their headphones beside the station sound desk" draggable="false" /></div>
+      <div class="audio-hero"><img data-menu-src="images/menus/ttm-sound-desk.webp" alt="Crew member at the station sound desk" draggable="false" /></div>
       <div class="sound-desk">
         <div class="audio-controls">
           <button id="music-switch" class="channel-toggle" role="switch" aria-label="Music" aria-checked="true"><svg class="console-wheel" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="wheel-gold" x2=".8" y2="1"><stop stop-color="#fff3a9"/><stop offset=".4" stop-color="#e9ad29"/><stop offset="1" stop-color="#97611d"/></linearGradient></defs><circle cx="32" cy="33" r="29" fill="#86541b"/><circle cx="32" cy="30" r="27" fill="url(#wheel-gold)" stroke="#fff1ad" stroke-width="2"/><circle cx="32" cy="30" r="18" fill="#163e49" stroke="#b07d26" stroke-width="3"/><path d="M32 10v40M12 30h40M18 16l28 28m0-28L18 44" stroke="#e8b943" stroke-width="6"/><circle cx="32" cy="30" r="9" fill="url(#wheel-gold)" stroke="#fff0ac" stroke-width="2"/></svg><span class="channel-name">MUSIC</span><strong id="music-state" class="channel-state">ON</strong></button>
@@ -613,6 +640,38 @@
       </div>
     </section>
   </div>
+  <div id="route-map-menu" class="scrim">
+    <section class="route-map-shell" role="dialog" aria-modal="true" aria-labelledby="route-map-heading">
+      <header class="route-map-header">
+        <button class="station-link upgrade-back" data-menu-back type="button" aria-label="Back to The Station" style="position:static;">
+          <svg class="back-rail-sign" viewBox="0 0 88 76" aria-hidden="true">
+            <path d="M44 5 L83 70 Q85 74 80 74 L8 74 Q3 74 5 70 Z" fill="#fff" stroke="#d9251c" stroke-width="6.5" stroke-linejoin="round"/>
+            <g fill="#12181f" transform="translate(44 48) scale(0.6) translate(-44 -44)">
+              <rect x="24" y="42" width="38" height="14" rx="2"/>
+              <rect x="48" y="32" width="14" height="12" rx="1.5"/>
+              <rect x="27" y="30" width="6" height="13" rx="1"/>
+              <rect x="37" y="37" width="7" height="6" rx="3"/>
+              <path d="M22 52 L26 44 L26 56 L21 56 Z"/>
+              <circle cx="30" cy="59" r="4"/>
+              <circle cx="39" cy="59" r="4"/>
+              <circle cx="49" cy="59" r="4.8"/>
+              <circle cx="59" cy="59" r="4.8"/>
+              <path d="M31 28 C34 20 44 19 52 22 C58 24 64 22 68 19 C64 26 55 28 47 26 C40 24 34 26 31 28 Z"/>
+            </g>
+          </svg>
+          <span class="back-station-plate"><span aria-hidden="true">←</span> STATION</span>
+        </button>
+        <div class="route-map-title-wrap">
+          <h2 class="route-map-heading" id="route-map-heading">ROUTE MAP</h2>
+          <div class="route-map-progress" id="route-map-progress">STATION 1 / 25</div>
+        </div>
+        <div class="rail-token" aria-label="Coin balance"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#menu-token"/></svg><span id="route-map-coins">0</span></div>
+      </header>
+      <div class="route-map-stage" id="route-map-stage"></div>
+      <div class="route-map-footer"><span class="rm-footer-copy">Replay any level</span></div>
+    </section>
+  </div>
+
   <div id="upgrades-menu" class="scrim" data-active-tab="yard">
     <section class="upgrade-shell" role="dialog" aria-modal="true" aria-labelledby="upgrades-heading">
       <header class="upgrade-header">
@@ -651,10 +710,16 @@
         <div class="yard-collection" role="group" aria-label="Explore your engines">
           <button id="yard-starter-select" type="button" aria-pressed="false"><img class="engine-thumb" src="images/yard/little-chippa.webp" alt="" width="130" height="92"><span><strong>LITTLE LEGEND</strong><small>LITTLE CHIPPA</small></span><span class="engine-owned">✓ YOURS</span></button>
           <span class="yard-step" aria-hidden="true">➜</span>
-          <button id="yard-preview-toggle" type="button" aria-pressed="true"><img class="engine-thumb" src="images/yard/old-red.webp" alt="" width="130" height="92"><span><strong>LOAD IT UP!</strong><small>OLD RED</small></span><span class="engine-owned" id="yard-red-state">180</span></button>
+          <div class="yard-red-card" id="yard-red-card" data-selected="true">
+            <button id="yard-preview-toggle" type="button" aria-pressed="true"><img class="engine-thumb" src="images/yard/old-red.webp" alt="" width="130" height="92"><span><strong>LOAD IT UP!</strong><small>OLD RED</small></span></button>
+            <div class="yard-inline-checkout" id="yard-red-state">
+              <button class="upgrade-buy yard-inline-buy" id="btn-yard-action" type="button" disabled>UPGRADE</button>
+              <p class="upgrade-requirement" id="yard-requirement"></p>
+            </div>
+          </div>
         </div>
         <div class="yard-economy" aria-label="Collect logs, deliver at the station, earn coins to upgrade"><span><svg class="timber-icon" viewBox="0 0 56 48" aria-hidden="true"><path d="M10 26L34 8Q41 3 48 10Q54 18 46 22L24 39Z" fill="#d87928" stroke="#85431e" stroke-width="2" stroke-linejoin="round"/><path d="M17 27L41 9M23 32L47 14" stroke="#ffb548" stroke-width="3" stroke-linecap="round"/><ellipse cx="17" cy="32" rx="11" ry="9" fill="#ffd073" stroke="#85431e" stroke-width="2"/><ellipse cx="17" cy="32" rx="6" ry="5" fill="none" stroke="#b86a29" stroke-width="2"/><path d="M14 31q4-3 5 2" fill="none" stroke="#b86a29" stroke-width="1.5" stroke-linecap="round"/></svg><b>COLLECT</b></span><i aria-hidden="true">➜</i><span><svg viewBox="0 0 44 36" aria-hidden="true"><path d="M5 15L22 3l17 12M9 14v18h26V14M17 32V21h10v11" fill="#e7fcf0" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M3 33h38" stroke="currentColor" stroke-width="3"/></svg><b>DELIVER</b></span><i aria-hidden="true">➜</i><span><svg class="upgrade-coin" viewBox="0 0 36 38" aria-hidden="true"><use href="#coin-token"/></svg><b>UPGRADE</b></span></div>
-        <div class="yard-checkout"><p id="yard-offer-note"></p><button class="upgrade-buy" id="btn-yard-action" type="button" disabled>UPGRADE</button><p class="upgrade-requirement" id="yard-requirement"></p><p class="upgrade-status" id="yard-purchase-status" role="status"></p></div>
+        <div class="yard-checkout"><p id="yard-offer-note" hidden></p><p class="upgrade-status" id="yard-purchase-status" role="status"></p></div>
         <span id="yard-offer-kicker" hidden></span>
       </section>
       <section id="wrecking-crew-panel" class="upgrade-panel" role="tabpanel" aria-labelledby="tab-wrecking-crew" hidden>
@@ -724,6 +789,13 @@
           <span class="repair-price">
           <svg class="repair-coin" viewBox="0 0 36 38" aria-hidden="true"><use href="#coin-token"/></svg>
           <span class="repair-cost">COIN <span id="revive-label">50</span></span>
+          <span class="repair-secs"><b>+6</b><i>SECS</i></span>
+          </span>
+        </button>
+        <button id="btn-revive-ad" class="station-action secondary" type="button" hidden>
+          <span>FREE REPAIR</span>
+          <span class="repair-price">
+          <span class="repair-ad-tag">WATCH AD</span>
           <span class="repair-secs"><b>+6</b><i>SECS</i></span>
           </span>
         </button>
